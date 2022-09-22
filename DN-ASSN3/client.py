@@ -3,7 +3,6 @@
 """
 
 # Importing dependencies
-import socket
 import sys
 import zmq
 
@@ -24,6 +23,10 @@ sock_req.connect(f"tcp://127.0.0.1:{ports[1]}")
 sock_sub.connect(f"tcp://127.0.0.1:{ports[2]}")
 sock_sub.setsockopt_string(zmq.SUBSCRIBE, '')
 
+# Timeouts
+sock_sub.RCVTIMEO = 1000
+sock_req.RCVTIMEO = 1000
+
 
 
 try:
@@ -43,6 +46,10 @@ try:
 
             except zmq.Again:
                 pass 
+
+            except zmq.ZMQError as exc:
+                print("There is an error, make sure server, and/or its workers work correctly! \n")
+                sys.exit(0)
             
                          
 # 5. would be covered
