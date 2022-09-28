@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+service service {
+    rpc reverse (inpt) returns (reverse_input);
+    rpc split(text) returns (parts);
+    rpc isprime(num) returns (ans);
+}
+
+message inpt {
+    string inp = 1;
+}
+
+message reverse_input{
+    string reverse_input = 1;
+}
+
+message text {
+    string text = 1;
+}
+
+message parts {
+    int32 number = 1;
+    repeated string parts = 2;
+}
+
+message num {
+    repeated int32 num = 1;
+}
+
+message ans {
+    repeated string ans = 1;
+}
