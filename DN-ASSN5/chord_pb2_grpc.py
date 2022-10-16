@@ -45,6 +45,16 @@ class chordStub(object):
                 request_serializer=chord__pb2.key_text.SerializeToString,
                 response_deserializer=chord__pb2.success_msg.FromString,
                 )
+        self.find = channel.unary_unary(
+                '/chord/find',
+                request_serializer=chord__pb2.key_text.SerializeToString,
+                response_deserializer=chord__pb2.success_msg.FromString,
+                )
+        self.remove = channel.unary_unary(
+                '/chord/remove',
+                request_serializer=chord__pb2.key_text.SerializeToString,
+                response_deserializer=chord__pb2.success_msg.FromString,
+                )
 
 
 class chordServicer(object):
@@ -88,6 +98,18 @@ class chordServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def find(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def remove(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_chordServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -118,6 +140,16 @@ def add_chordServicer_to_server(servicer, server):
             ),
             'save': grpc.unary_unary_rpc_method_handler(
                     servicer.save,
+                    request_deserializer=chord__pb2.key_text.FromString,
+                    response_serializer=chord__pb2.success_msg.SerializeToString,
+            ),
+            'find': grpc.unary_unary_rpc_method_handler(
+                    servicer.find,
+                    request_deserializer=chord__pb2.key_text.FromString,
+                    response_serializer=chord__pb2.success_msg.SerializeToString,
+            ),
+            'remove': grpc.unary_unary_rpc_method_handler(
+                    servicer.remove,
                     request_deserializer=chord__pb2.key_text.FromString,
                     response_serializer=chord__pb2.success_msg.SerializeToString,
             ),
@@ -228,6 +260,40 @@ class chord(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/chord/save',
+            chord__pb2.key_text.SerializeToString,
+            chord__pb2.success_msg.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def find(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/chord/find',
+            chord__pb2.key_text.SerializeToString,
+            chord__pb2.success_msg.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def remove(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/chord/remove',
             chord__pb2.key_text.SerializeToString,
             chord__pb2.success_msg.FromString,
             options, channel_credentials,

@@ -1,3 +1,3 @@
 import sys
-b = "false"
+b = {'a':"raj", }
 print(bool(b))
