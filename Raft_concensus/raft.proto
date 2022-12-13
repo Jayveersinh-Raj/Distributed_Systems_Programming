@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+service raft {
+    rpc RequestVote(term_id) returns (term_vote);
+    rpc AppendEntries(term_id) returns (term_leader);
+    rpc GetLeader(google.protobuf.Empty) returns (id_address);
+    rpc Suspend(period) returns (period);
+}
+
+message term_id {
+    int32 term = 1;
+    int32 id = 2;
+}
+
+message term_vote {
+    int32 term = 1;
+    bool vote = 2;
+}
+
+message id_address {
+    string id = 1;
+    string addr = 2;
+}
+
+message period {
+    int32 period = 1;
+}
+
+message term_leader {
+    int32 term = 1;
+    string id = 2;
+}

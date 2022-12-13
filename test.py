@@ -1,1 +1,3 @@
-print("test git")
+delim = "Hello#World"
+splitted = delim.split('#')
+print(splitted)
